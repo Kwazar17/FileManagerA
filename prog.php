@@ -40,10 +40,10 @@ function dirOutput ($mass_dir, $fp){
 	 
 	foreach ($mass_dir as $f) {
 		if(is_dir('home/'.$fp.'/'.$f)) {
-			$result.= '<catalog class = "f-out-list catalog" data ="'.$fp.'/'.$f.'">'.$f.'</catalog>';
+			$result.= '<catalog class = "f-out-list catalog" data ="'.$fp.'/'.$f.'" name ="'.$f.'"></catalog>';
 			
 		} else {
-			$result.= '<files class = "f-out-list file" data ="'.$fp.'/'.$f.'">'.$f.'</files>';
+			$result.= '<files class = "f-out-list file" data ="'.$fp.'/'.$f.'" name ="'.$f.'"></files>';
 		}
 	}	
 	$result.= '</outputcat>';

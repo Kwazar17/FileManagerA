@@ -76,6 +76,10 @@ window.onload = function() {
 			 
 			ah=li.appendChild (document.createElement ('a'));
 			ah.setAttribute('class',getAttribXML(cats[i])['class']);
+			ah.setAttribute('data',getAttribXML(cats[i])['data']);
+			ah.setAttribute('name',getAttribXML(cats[i])['name']);
+			ah.innerHTML = getAttribXML(cats[i])['name'];
+			
 			ul.appendChild(li);
 			
 		}
