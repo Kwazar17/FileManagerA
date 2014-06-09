@@ -73,17 +73,22 @@ window.onload = function() {
 		 
 		for (i=0;i<cats.length;i++) {
 			li =document.createElement('li');
-			 
 			ah=li.appendChild (document.createElement ('a'));
 			ah.setAttribute('class',getAttribXML(cats[i])['class']);
 			ah.setAttribute('data',getAttribXML(cats[i])['data']);
 			ah.setAttribute('name',getAttribXML(cats[i])['name']);
 			ah.innerHTML = getAttribXML(cats[i])['name'];
-			
 			ul.appendChild(li);
-			
 		}
-		
+		for (i=0;i<files.length;i++) {
+			li =document.createElement('li');
+			ah=li.appendChild (document.createElement ('a'));
+			ah.setAttribute('class',getAttribXML(files[i])['class']);
+			ah.setAttribute('data',getAttribXML(files[i])['data']);
+			ah.setAttribute('name',getAttribXML(files[i])['name']);
+			ah.innerHTML = getAttribXML(files[i])['name'];
+			ul.appendChild(li);
+		}
 		
 		
 		frag.appendChild(ul);
