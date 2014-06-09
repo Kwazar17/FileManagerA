@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
+	<script src="js/core.js"></script>
 	<meta charset="UTF-8">
 	<title>Ôאיכמגûי לוםוהזונ FMa 0.0.4</title>
 	<link rel="stylesheet" href="style/style.css">

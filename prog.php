@@ -1,14 +1,20 @@
 <?
  
 define ('root_dir','home');
-$action = isset( $_GET['action'] ) ? $_GET['action'] : "";
-$catpath = isset ($_GET['catpath'])? $_GET['catpath']:"";
+$action = isset( $_POST['action'] ) ? $_POST['action'] : "";
+$catpath = isset ($_POST['catpath'])? $_POST['catpath']:"";
+ 
 $output=array();
 switch ($action) {
 	case 'opendir': {
 		$output['action']='Open Dir';
 		$output['dirpath'] =  @root_dir.'/'.$catpath;
 		opendirpath($catpath);
+		break;
+	}
+	default: {
+	opendirpath('');
+	break;
 	}
 } 
 
@@ -30,23 +36,24 @@ function opendirpath ($dir_path) {
 }
 
 function dirOutput ($mass_dir, $fp){
-	echo '<ul id="f-out-ul">';
+	$result = '<?xml version="1.0" encoding="utf-8" ?><outputcat>';
+	 
 	foreach ($mass_dir as $f) {
 		if(is_dir('home/'.$fp.'/'.$f)) {
-			echo '<li class = "f-out-list catalog" data ="'.$fp.'/'.$f.'">'.$f.'</li>';
+			$result.= '<catalog class = "f-out-list catalog" data ="'.$fp.'/'.$f.'">'.$f.'</catalog>';
+			
 		} else {
-			echo '<li class = "f-out-list file" data ="'.$fp.'/'.$f.'">'.$f.'</li>';
+			$result.= '<files class = "f-out-list file" data ="'.$fp.'/'.$f.'">'.$f.'</files>';
 		}
 	}	
-	echo '</ul>';
+	$result.= '</outputcat>';
+	echo $result;
+	
 }
 
-function isFile($path) {
+ 
 
-}
-
-echo '<b>Действие</b> - '.$output['action'].'<br/>';
-echo '<b>Искомый путь</b> - '.$output['dirpath'];
+ 
 
 
 
