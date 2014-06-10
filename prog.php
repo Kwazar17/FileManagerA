@@ -32,20 +32,23 @@ function opendirpath ($dir_path) {
 		$dir_h = scandir(@root_dir.'/');
 	}
 	array_splice($dir_h, 0, 2);
+	 
 	dirOutput ($dir_h, $dir_path);
 }
 
 function dirOutput ($mass_dir, $fp){
 	$result = '<?xml version="1.0" encoding="utf-8" ?><outputcat>';
+	
 	 
 	foreach ($mass_dir as $f) {
 		if(is_dir('home/'.$fp.'/'.$f)) {
-			$result.= '<catalog class = "f-out-list catalog" data ="'.$fp.'/'.$f.'" name ="'.$f.'"></catalog>';
-			
+			$result.= '<catalog class = "f-out-list catalog" parent ="'.$fp.'" data ="'.$fp.'/'.$f.'" name ="'.$f.'"></catalog>';
+			 
 		} else {
-			$result.= '<files class = "f-out-list file" data ="'.$fp.'/'.$f.'" name ="'.$f.'"></files>';
+			$result.= '<files class = "f-out-list file" parent ="'.$fp.'" data ="'.$fp.'/'.$f.'" name ="'.$f.'"></files>';
 		}
 	}	
+	$result.= '<parentdir nam ="'.$fp.'"></parentdir>';
 	$result.= '</outputcat>';
 	echo $result;
 	

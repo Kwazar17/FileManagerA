@@ -29,23 +29,44 @@ window.onload = function() {
 		  var xml=txtToXML(data);
 		  var file = xml.getElementsByTagName('files');
 		  var catalogs =xml.getElementsByTagName('catalog');
+		  var parentel = xml.getElementsByTagName('parentdir');
+		  
+		  getParentPath (parentel);
+		  
 		  viewTree (file,catalogs);
 		 
 	}
-	
+	function getParentPath(parentel) {
+		var parentdir =parentel[0].attributes[0].value;
+		  var parentpath='';
+		  
+		  var parentarr =  parentdir.split('/');
+		  if (parentarr.length<2) {
+			
+			parentarr =[];
+			parentpath = '/';
+		  } else {
+			parentarr.pop();
+			parentpath = parentarr.join('/');
+		  }
+		  return parentpath;
+		  
+		  console.log(parentarr); 
+		  console.log(parentpath); 
+	}
 	/*
 	*
 	Получение массива аттрибутов элемента
 	*/
 	function getAttribXML (node) {
 		var ret = new Object();  
-		  if(node.attributes)  
+		  if(node.attributes) {  
 		  for(var i=0; i<node.attributes.length; i++)  
 		  {  
 			var attr = node.attributes[i];  
 			ret[attr.name] = attr.value;  
 		  }  
-		  return ret;  
+		  return ret; }
 	}
 	
 	/*
@@ -120,7 +141,7 @@ window.onload = function() {
 				dataAttr = dataAttr.slice(1);
 			}
 			var dataReq = 'action=opendir&catpath='+dataAttr;
-			console.log (dataReq);
+			 
 			 
 			sendReq(dataReq);
 		}
