@@ -4,6 +4,9 @@ background:rgb(182, 172, 101);
 .file {
  
 }
+.f-out-list {
+cursor:pointer;
+}
 #f-out-ul {
 width: 350px;
 }

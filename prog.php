@@ -3,7 +3,7 @@
 define ('root_dir','home');
 $action = isset( $_POST['action'] ) ? $_POST['action'] : "";
 $catpath = isset ($_POST['catpath'])? $_POST['catpath']:"";
- 
+
 $output=array();
 switch ($action) {
 	case 'opendir': {
