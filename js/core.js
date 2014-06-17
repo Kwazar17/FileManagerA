@@ -30,10 +30,10 @@ window.onload = function() {
 		  var file = xml.getElementsByTagName('files');
 		  var catalogs =xml.getElementsByTagName('catalog');
 		  var parentel = xml.getElementsByTagName('parentdir');
+		  var parentpath = getParentPath (parentel);
 		  
-		  getParentPath (parentel);
-		  
-		  viewTree (file,catalogs);
+		  console.log(parentpath);
+		  viewTree (file,catalogs,parentpath);
 		 
 	}
 	function getParentPath(parentel) {
@@ -49,6 +49,7 @@ window.onload = function() {
 			parentarr.pop();
 			parentpath = parentarr.join('/');
 		  }
+		   
 		  return parentpath;
 		  
 		  console.log(parentarr); 
@@ -96,25 +97,34 @@ window.onload = function() {
 	*/
 	
 	function clearTree () {
-		var el = document.getElementById('f-out-ul');
+		var el = document.getElementById('f-out-ul'),
+			parent_el = document.getElementById('f-out-parent');
 		if (el) {
+			parent_el.parentNode.removeChild (parent_el);
 			el.parentNode.removeChild (el);
 		} 
 	
 	}
-	function viewTree (cats, files){
-		clearTree();
-		var frag = document.createDocumentFragment();
+	function viewTree (cats, files, parent){
 		
-		var bbb = document.body;
-		var ul = document.createElement('ul');
+		var frag = document.createDocumentFragment(),
+			bbb = document.body,
+			par_el = document.createElement('div'),
+			ul = document.createElement('ul');
+		clearTree();	
+		
+		par_el.setAttribute('id','f-out-parent');
+		par_el.setAttribute('class','f-out-list up');
+		par_el.setAttribute('data-href',parent);
+		par_el.innerHTML = parent;
+		
 		ul.setAttribute('id','f-out-ul');
 		 
 		for (i=0;i<cats.length;i++) {
 			li =document.createElement('li');
 			ah=li.appendChild (document.createElement ('a'));
 			ah.setAttribute('class',getAttribXML(cats[i])['class']);
-			ah.setAttribute('data',getAttribXML(cats[i])['data']);
+			ah.setAttribute('data-href',getAttribXML(cats[i])['data']);
 			ah.setAttribute('name',getAttribXML(cats[i])['name']);
 			ah.innerHTML = getAttribXML(cats[i])['name'];
 			ul.appendChild(li);
@@ -123,11 +133,12 @@ window.onload = function() {
 			li =document.createElement('li');
 			ah=li.appendChild (document.createElement ('a'));
 			ah.setAttribute('class',getAttribXML(files[i])['class']);
-			ah.setAttribute('data',getAttribXML(files[i])['data']);
+			ah.setAttribute('data-href',getAttribXML(files[i])['data']);
 			ah.setAttribute('name',getAttribXML(files[i])['name']);
 			ah.innerHTML = getAttribXML(files[i])['name'];
 			ul.appendChild(li);
 		}
+		frag.appendChild(par_el);
 		frag.appendChild(ul);
 		bbb.appendChild(frag);
 	}
@@ -135,14 +146,13 @@ window.onload = function() {
 	 
 	window.onclick = function (e) {
 		e = e||event;
-		if (e.target.className == "f-out-list catalog") {
-			var dataAttr = getAttribXML(e.target)['data'];
+		if (e.target.className == "f-out-list catalog"||"f-out-list up") {
+			var dataAttr = getAttribXML(e.target)['data-href'];
 			if (dataAttr.substr(0,1) == '/') {
 				dataAttr = dataAttr.slice(1);
 			}
 			var dataReq = 'action=opendir&catpath='+dataAttr;
-			 
-			 
+
 			sendReq(dataReq);
 		}
 	}
