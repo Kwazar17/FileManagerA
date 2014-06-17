@@ -4,7 +4,7 @@
 <head>
 	<script src="js/core.js"></script>
 	<meta charset="UTF-8">
-	<title>Ôאיכמגûי לוםוהזונ FMa 0.0.7</title>
+	<title>Ôאיכמגûי לוםוהזונ FMa 0.0.7 </title> 
 	<link rel="stylesheet" href="style/style.css">
 </head>
 <body>
